@@ -39,14 +39,15 @@ async def on_ready():
                 and trade['side'] == 'buy'
                 and (trade['price'] * trade['size']) > threshold
             ]
-            last_time = data[0]['time']
 
             # Send new trades above threshold to Discord.
-            for trade in trades:
-                await channel.send(
-                    f'🔥 **{trade["size"]}** ROPE bought at '
-                    f'**{round(trade["price"], 2)}** USD on Serum DEX!'
-                )
+            if trades:
+                last_time = data[0]['time']
+                for trade in trades:
+                    await channel.send(
+                        f'🔥 **{trade["size"]}** ROPE bought at '
+                        f'**{round(trade["price"], 2)}** USD on Serum DEX!'
+                    )
             
         except Exception as e:
             # Catch all errors, print, and continue.
