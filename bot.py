@@ -1,3 +1,4 @@
+import time
 import discord
 import requests
 
@@ -22,7 +23,7 @@ async def on_ready():
         )
     )
     channel = client.get_channel(target_channel)
-    last_time = 0
+    last_time = time.time() * 1000
 
     # Start loop.
     while True:
@@ -46,11 +47,14 @@ async def on_ready():
                     f'🔥 **{trade["size"]}** ROPE bought at '
                     f'**{round(trade["price"], 2)}** USD on Serum DEX!'
                 )
-            await sleep(10)
             
         except Exception as e:
             # Catch all errors, print, and continue.
             print(f'Error: {e}.')
+            
+        finally:
+            # Wait 10 seconds.
+            await sleep(10)
 
 
 client.run(bot_token, reconnect=True)
