@@ -36,7 +36,6 @@ async def on_ready():
             trades = [
                 trade for trade in data
                 if trade['time'] > last_time
-                and trade['side'] == 'buy'
                 and trade['size'] > threshold
             ]
 
@@ -59,4 +58,4 @@ async def on_ready():
             await sleep(10)
 
 
-client.run(bot_token, reconnect=True)
+client.run(bot_token)
